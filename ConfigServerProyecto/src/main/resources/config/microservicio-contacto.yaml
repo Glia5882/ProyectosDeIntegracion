@@ -1,0 +1,34 @@
+spring:
+  application:
+    # Never use '_' in application name, both in application.yaml and pom.xml
+    # Use '-' instead
+    # Otherwise gateway may not work correctly
+    name: microservicio-contacto
+
+datasource:
+  url: jdbc:h2:mem:testdb
+  driver-class-name: org.h2.Driver
+  username: sa
+  password: password
+  generate-unique-name: false
+h2:
+  console:
+  enabled: true
+
+server:
+  # To avoid colliding with other apps in port 8080
+  port: 8085
+
+# App metadata
+info:
+  app:
+    name: Simple Microservice
+    description: A simple microservice example
+    version: 1.0.0
+  company:
+    name: MyCompany
+    contact:
+      email: support@mycompany.com
+      phone: +1234567890
+  build:
+    time: ${BUILD_TIME:2024-08-21T12:30:00Z}
