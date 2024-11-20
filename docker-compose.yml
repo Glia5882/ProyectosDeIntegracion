@@ -4,30 +4,42 @@ services:
       context: ./ConfigServerProyecto
       dockerfile: Dockerfile
     ports:
-      - "8888:8888"
+      - 8888:8888
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     networks:
       - integration-network
-
   service-registry:
     build:
       context: ./ServiceRegistryProyecto
       dockerfile: Dockerfile
     ports:
-      - "9988:9988"
+      - 9988:9988
     networks:
       - integration-network
-
   api-gateway:
     build:
       context: ./APIGatewayProyecto
       dockerfile: Dockerfile
     ports:
-      - "8080:8080"
+      - 8080:8080
     networks:
       - integration-network
-
+  microservicio-servicio:
+    build:
+      context: C:\Users\Personal\Documents\GitHub\Microservicio-servicio
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8082
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:9988/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    depends_on:
+      - config-server
+      - service-registry
+    networks:
+      - integration-network
 networks:
   integration-network:
     driver: bridge
