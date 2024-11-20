@@ -25,6 +25,21 @@ services:
       - 8080:8080
     networks:
       - integration-network
+  microservicio-cliente:
+    build:
+      context: C:\Users\Personal\Documents\GitHub\ProyectoMicroservicios
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8081
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://service-registry:9988/eureka
+      - SPRING_CLOUD_CONFIG_URI=http://config-server:8888
+    depends_on:
+      - config-server
+      - service-registry
+    networks:
+      - integration-network
   microservicio-servicio:
     build:
       context: C:\Users\Personal\Documents\GitHub\Microservicio-servicio
