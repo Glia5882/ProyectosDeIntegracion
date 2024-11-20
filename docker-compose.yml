@@ -1,0 +1,33 @@
+services:
+  config-server:
+    build:
+      context: ./ConfigServerProyecto
+      dockerfile: Dockerfile
+    ports:
+      - "8888:8888"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - integration-network
+
+  service-registry:
+    build:
+      context: ./ServiceRegistryProyecto
+      dockerfile: Dockerfile
+    ports:
+      - "9988:9988"
+    networks:
+      - integration-network
+
+  api-gateway:
+    build:
+      context: ./APIGatewayProyecto
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    networks:
+      - integration-network
+
+networks:
+  integration-network:
+    driver: bridge

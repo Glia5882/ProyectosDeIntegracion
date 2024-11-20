@@ -4,7 +4,7 @@ server:
 spring:
   application:
     name: config-server
-
+  
   cloud:
     config:
       server:
@@ -14,10 +14,7 @@ spring:
         # Instead, create a repo in a server and point to it using https
         # Remove this if using GIT to store config files
         native:
-          search-locations:
-          # The config files are stored in `src/main/resources/config`
-          - classpath:/config
-          
+          search-locations: file:/config
         # To use a git repo, uncomment and change below
         # git:
         #   uri: https://github.com/my/repo/path.git
